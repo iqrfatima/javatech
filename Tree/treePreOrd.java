@@ -12,6 +12,23 @@ public class treePreOrd {
             this.right=null;
         }
     }
+    public static int SumOfNodes(Node root){
+        if(root==null)
+        return 0;
+        int sumleft = SumOfNodes(root.left);
+        int sumright = SumOfNodes(root.right);
+
+        return sumleft + sumright + root.data;
+    }
+    public static int noOfNode(Node root){
+        if(root==null)
+        return 0;
+
+        int noOfLeftNodes = noOfNode(root.left);
+        int noOfrightNodes = noOfNode(root.right);
+
+        return noOfLeftNodes + noOfrightNodes + 1;
+    }
     static class BinaryTree{
         static int idx = -1;
         public Node buildTree(int nodes[]){
@@ -61,6 +78,9 @@ public class treePreOrd {
         InOrder(root);
         System.out.println("tree elements in postorder");
         postOrder(root);
+        System.out.println("no of nodes in tree :"+noOfNode(root));
+        System.out.println("sum of nodes :"+SumOfNodes(root));
+
     }
 }
     

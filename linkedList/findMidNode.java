@@ -1,5 +1,6 @@
+package linkedList;
 public class findMidNode {
-    public static Node display(Node head){
+    public static void display(Node head){
         Node temp = head;
         while(head!=null){
             System.out.println(temp.data);
@@ -41,7 +42,7 @@ public class findMidNode {
         c.next = d;
         d.next = e;
         e.next = f;
-
+        display(a);
         midNode(a);
 
 

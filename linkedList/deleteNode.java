@@ -1,3 +1,4 @@
+package linkedList;
 public class deleteNode {
     //to display the node
     public static void display(Node head){

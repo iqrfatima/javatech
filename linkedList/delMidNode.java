@@ -1,3 +1,4 @@
+package linkedList;
 public class delMidNode {
     public static void display(Node head){
         Node temp = head;

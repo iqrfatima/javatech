@@ -11,7 +11,7 @@ class CirQueue{
     //     this.n=n;
     //     this.Queue=Queue;
     // }
-    public static void enqueue(int value){
+    static void enqueue(int value){
         if((rear+1)%n==front){
             System.out.println("its full");
             return;
@@ -27,7 +27,7 @@ class CirQueue{
             Queue[rear]=value;
         }
     }
-    public static void dequeue(){
+    static void dequeue(){
         if(rear==front){
             rear=front=-1;
             rear=front=0;
@@ -37,7 +37,7 @@ class CirQueue{
             System.out.println("dequeued"+Queue[front]);
         }
     }
-    public static void display(){
+    static void display(){
         if(rear==-1 && front==-1){
             System.out.println("its empty");
         }else{

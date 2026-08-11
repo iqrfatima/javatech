@@ -11,7 +11,7 @@ static class HashMap<K,V> { //generics
         this.value = value;
     }
    }
-   private int n; //n - nodes
+    private int n; //n - nodes
     private int N; //N - buckets
     private LinkedList<Node> buckets[]; //N = buckets.length
     @SuppressWarnings("unchecked")

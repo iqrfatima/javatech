@@ -1,7 +1,7 @@
 import java.util.*;
 public class classStud {
     public static void access(Student x){
-        System.out.println(x.rno);
+        System.out.println(x.getRno());
 
     }
     public static void main(String args[]){

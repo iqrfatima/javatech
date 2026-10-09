@@ -1,0 +1,269 @@
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;
+        for (int i = 0; i < k; i++) {
+            sum += nums[i];
+        }
+        int maxSum = sum;
+        for (int i = k; i < nums.length; i++) {
+            sum += nums[i] - nums[i - k]; 
+            maxSum = Math.max(maxSum, sum);
+        }
+        return (double) maxSum / k;
+    }
+}
+
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        result[0] = 1;
+        for (int i = 1; i < n; i++) {
+            result[i] = result[i - 1] * nums[i - 1];
+        }
+        int suffix = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            result[i] *= suffix;
+            suffix *= nums[i];
+        } 
+        return result;
+    }
+}
+
+
+class Solution {
+    public String longestPalindrome(String s) {
+        // int j = s.length()-1;
+        // StringBuilder substr = new StringBuilder();
+        // for(int i =0;i<s.length();i++){
+        //     if(s.charAt(i)==s.charAt(j)){
+        //         substr.append(s.charAt(i));
+        //     }
+        //     j--;
+        // }
+        // return substr.toString();
+        int n = s.length();
+        if (n == 0) return "";
+
+        boolean[][] dp = new boolean[n][n];
+        int start = 0, maxLen = 1;
+
+        // Single characters are palindromes
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = true;
+        }
+
+        //Check two-character substrings
+        for (int i = 0; i < n - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                dp[i][i + 1] = true;
+                start = i;
+                maxLen = 2;
+            }
+        }
+
+        // Expand for substrings of length >= 3
+        for (int len = 3; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1; // ending index
+
+                if (s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1]) {
+                    dp[i][j] = true;
+                    if (len > maxLen) {
+                        start = i;
+                        maxLen = len;
+                    }
+                }
+            }
+        }
+
+        return s.substring(start, start + maxLen);
+    }
+}
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        int[][] result = new int[intervals.length][2];
+        int index = 0;
+        result[0] = intervals[0];
+        for (int i = 1; i < intervals.length; i++) {
+            if (result[index][1] >= intervals[i][0]) {
+                result[index][1] =
+                    Math.max(result[index][1], intervals[i][1]);
+            } 
+            else {
+                index++;
+                result[index] = intervals[i];
+            }
+        }
+        return Arrays.copyOf(result, index + 1);
+    }
+}
+
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+     Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        int threshold = nums.length / 3;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > threshold) {
+                result.add(entry.getKey());
+            }
+        }
+
+        return result;
+    }
+}
+
+
+class Solution {
+    public boolean isValid(String s) {
+        char[] stack = new char[s.length()];
+        int top = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                stack[top++] = c;
+            } 
+            else {
+                if (top == 0) return false;
+                char open = stack[--top];
+                if ((c == ')' && open != '(') ||
+                    (c == '}' && open != '{') ||
+                    (c == ']' && open != '[')) {
+                    return false;
+                }
+            }
+        }
+        return top == 0;
+    }
+}
+
+class Solution {
+    public int compress(char[] chars) {
+        int write = 0;
+        int i = 0;
+        while (i < chars.length) {
+            char ch = chars[i];
+            int count = 0;
+            while (i < chars.length && chars[i] == ch) {
+                count++;
+                i++;
+            }
+            chars[write++] = ch;
+            if (count > 1) {
+                String num = String.valueOf(count);
+
+                for (char c : num.toCharArray()) {
+                    chars[write++] = c;
+                }
+            }
+        }
+
+        return write;
+    }
+}
+
+
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int count = 0;
+        for (int n : nums) {
+            int complement = k - n;
+            if (map.containsKey(complement) && map.get(complement) > 0) {
+                count++;
+                map.put(complement, map.get(complement) - 1);
+            } else {
+                map.put(n, map.getOrDefault(n, 0) + 1);
+            }
+        }
+        return count;
+        }
+}
+
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        if (n == 0) return true;
+        int count=0;
+       for(int i=0;i<flowerbed.length;i++){
+            if (flowerbed[i] == 0 && (i == 0 || flowerbed[i - 1] == 0) && (i == flowerbed.length - 1 || flowerbed[i + 1] == 0)) {
+                flowerbed[i] = 1;
+                count++;
+            if(count==n) return true;
+            }
+       }
+        return false;
+    }
+}
+
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int n:arr){
+            if(map.containsKey(n))
+                map.put(n,map.get(n)+1);
+            else
+                map.put(n,1);
+        }
+        HashSet<Integer> set = new HashSet<>();
+        for(int freq : map.values()){
+            if (!set.add(freq))
+            return false;
+        }
+        return true;
+    }
+}
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+
+        for (int x : nums1) {
+            set1.add(x);
+        }
+        for (int x : nums2) {
+            set2.add(x);
+        }
+
+        List<Integer> first = new ArrayList<>();
+        List<Integer> second = new ArrayList<>();
+
+        for (int x : set1) {
+            if (!set2.contains(x)) {
+                first.add(x);
+            }
+        }
+        for (int x : set2) {
+            if (!set1.contains(x)) {
+                second.add(x);
+            }
+        }
+        ans.add(first);
+        ans.add(second);
+        return ans;
+    }
+}
+
+
+
+
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int altitude =0;
+        int max= 0;
+        for (int i=0;i<gain.length;i++) {
+            altitude += gain[i];
+            max = Math.max(max, altitude);
+        }
+        return max;
+    }
+}

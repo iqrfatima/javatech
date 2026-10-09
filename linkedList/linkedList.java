@@ -12,7 +12,7 @@ public class linkedList{
     }
     public static void Display(Node head){
         if(head==null)
-        return;
+            return;
         System.out.println(head.data+" ");
         Display(head.next);
     }

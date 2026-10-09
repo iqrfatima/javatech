@@ -1,3 +1,4 @@
+package StringsDSA;
 import java.util.HashSet;
 
 public class uniqueSeq {
@@ -9,19 +10,15 @@ public class uniqueSeq {
                 System.out.println(newStr);
                 set.add(newStr);
                 return;
-
             }
         }
         char currChar = str.charAt(idx);
-
         uniqueSubSeq(str, idx+1, newStr+currChar, set);
-
         uniqueSubSeq(str, idx+1, newStr, set);
     }
     public static void main(String args[]){
-        String str="aaa";
+        String str="abcda";
         HashSet<String>set = new HashSet<>();
         uniqueSubSeq(str, 0, "", set);
-    }
-    
+    }   
 }
